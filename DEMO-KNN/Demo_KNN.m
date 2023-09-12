@@ -1,0 +1,54 @@
+%% Start
+clear all; close all; clc; clear cache;
+DaqObj = MyoMex; % create a MYO object
+DaqObj.myoData.rateIMU;
+pause (2);
+%% sampleRate
+sampleRate = 50;
+%% Data processing object
+ProcessObj = dataprocessing(sampleRate);
+ProcessObj.nsamples_interval = round((ProcessObj.interval/1000)*(DaqObj.myoData.rateIMU));
+ProcessObj.nsamples_window = round((ProcessObj.windowsize/1000)*(DaqObj.myoData.rateIMU));
+%% SVM model loading
+disp('Getting Labels . . . . . . . . . .'); 
+load TB.mat %load training labels 
+load TV1abcd.mat %load trainvec  data of sEMG
+train_l = train_labels;
+clear train_labels;
+for j = 1:length(train_l)
+    train_labels(j) = categorical({num2str(train_l(j,:))});
+end
+train_labels = train_labels';
+disp('Loading Multiclass KNN-Based Machine Learning Algorithm . . . .'); 
+load modelKNN1248.mat
+%load modelKNN.mat % accuracy is 99.74 %
+%load modelensemble.mat % accuray for fitcensemble learning method is 97.48% 
+%% Test
+disp('Starting testing phase . . .')
+ViewObj = interface_new1; % view cursor in the interface of LAPTOP screen
+%ViewObj = interface;
+timewatch = tic();
+prevest = [0 0];
+Window = [];
+%% While Loop for
+while toc(timewatch) <60 % run for 120 seconds
+    temp_data = (DaqObj.myoData.emg_log(end,:));
+    posedata = [DaqObj.myoData.pose_rest(end,:) DaqObj.myoData.pose_fist(end,:) DaqObj.myoData.pose_wave_in(end,:) DaqObj.myoData.pose_wave_out(end,:) DaqObj.myoData.pose_fingers_spread(end,:)];
+    if length(Window) > 2
+        Window(1:size(temp_data,1),:) = []; % remove first nsamples_interval
+    end
+    Window = [Window ; temp_data]; % update to keep the size as nsamples_window
+    testvec = [Window posedata];
+    est = predict(ecoc,testvec);
+    estimation = str2num(string(est));
+    lbl = [0 0];
+    ViewObj.updatedata(10*estimation,lbl);
+end
+%% Cross-validate Mdl using 10-fold cross-validation.
+% cvmodel= crossval(model);
+%% CVMdl is a ClassificationPartitionedECOC cross-validated ECOC classifier.
+% genError = kfoldLoss(cvmodel);
+%% confusion matrix
+%C = confusionmat(est,train_labels(1:length(est),:));
+%% accuracy
+%Accuracy = sum(est==train_labels(1:length(est)))/numel(est);
