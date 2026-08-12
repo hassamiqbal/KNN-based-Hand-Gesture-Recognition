@@ -1,0 +1,26 @@
+# MATLAB editor/autosave files
+*.asv
+*.m~
+*.autosave
+
+# MATLAB generated state/cache
+*.slxc
+*.mex*
+*.p
+codegen/
+slprj/
+*.mlappinstall
+*.mltbx
+*.prj
+
+# OS/editor clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+~$*
