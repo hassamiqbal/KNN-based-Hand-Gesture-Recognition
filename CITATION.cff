@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this research-code archive, please cite the associated ICAMechS 2023 paper."
+title: "KNN and Ensemble-Based Real-Time Hand Gesture Recognition for Powered Wheelchair"
+type: software
+version: "1.0.0"
+date-released: 2026-08-12
+repository-code: "https://github.com/hassamiqbal/KNN-based-Hand-Gesture-Recognition"
+authors:
+  - family-names: Iqbal
+    given-names: Hassam
+  - family-names: Zheng
+    given-names: Jinchuan
+  - family-names: Chai
+    given-names: Rifai
+  - family-names: Chandrasekaran
+    given-names: Sivachandran
+keywords:
+  - surface electromyography
+  - sEMG
+  - hand gesture recognition
+  - k-nearest neighbours
+  - ensemble learning
+  - powered wheelchair
+  - assistive technology
+  - human-machine interface
+  - MATLAB
+preferred-citation:
+  type: conference-paper
+  title: "K-Nearest Neighbours and Ensemble Based Real-Time Hand Gesture Recognition for Powered Wheelchair"
+  authors:
+    - family-names: Iqbal
+      given-names: Hassam
+    - family-names: Zheng
+      given-names: Jinchuan
+    - family-names: Chai
+      given-names: Rifai
+    - family-names: Chandrasekaran
+      given-names: Sivachandran
+  collection-title: "2023 International Conference on Advanced Mechatronic Systems (ICAMechS)"
+  publisher:
+    name: IEEE
+  year: 2023
+  start: 115
+  end: 120
+  doi: "10.1109/ICAMechS59878.2023.10272954"
